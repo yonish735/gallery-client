@@ -43,7 +43,7 @@ const GalleryForm = ({ currentId, setCurrentId }) => {
   return (
     <Paper className={classes.paper}>
       <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-        <Typography variant="h6">{currentId ? `Editing "${gallery.title}"` : 'Creating a Gallery'}</Typography>
+        <Typography variant="h6">{currentId ? `Editing a Gallery` : 'Creating a Gallery'}</Typography>
         <TextField name="title" variant="outlined" label="Title" fullWidth value={galleryData.title} onChange={(e) => setGalleryData({ ...galleryData, title: e.target.value })} />
         <TextField name="description" variant="outlined" label="Description" fullWidth multiline rows={4} value={galleryData.description} onChange={(e) => setGalleryData({
           ...galleryData,
@@ -55,7 +55,7 @@ const GalleryForm = ({ currentId, setCurrentId }) => {
         />
         <div className={classes.fileInput}><FileBase type="file" multiple={false} onDone={({ base64 }) => setGalleryData({ ...galleryData, image: base64 })} /></div>
         <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
-        <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
+        <Button className={classes.buttonClear} variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
       </form>
     </Paper>
   );

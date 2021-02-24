@@ -1,6 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles({
+  private: {
+    position: 'absolute',
+  },
   media: {
     height: 0,
     paddingTop: '56.25%',
@@ -9,6 +12,9 @@ export default makeStyles({
   },
   border: {
     border: 'solid',
+  },
+  selected: {
+    border: '3px solid red',
   },
   fullHeightCard: {
     height: '100%',
@@ -23,14 +29,14 @@ export default makeStyles({
   },
   overlay: {
     position: 'absolute',
-    top: '20px',
-    left: '20px',
+    top: '10px',
+    left: '5px',
     color: 'white',
   },
   overlay2: {
     position: 'absolute',
-    top: '20px',
-    right: '20px',
+    top: '5px',
+    right: '0',
     color: 'white',
   },
   grid: {
@@ -43,6 +49,7 @@ export default makeStyles({
   },
   title: {
     padding: '0 16px',
+    textTransform: 'uppercase',
   },
   cardActions: {
     padding: '0 16px 8px 16px',

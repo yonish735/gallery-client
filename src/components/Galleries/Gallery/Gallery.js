@@ -1,23 +1,40 @@
 import React from 'react';
-import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@material-ui/core/';
+import { Button, Card, CardActions, CardContent, CardMedia, Link, Paper, Tooltip, Typography } from '@material-ui/core/';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import BlurOff from '@material-ui/icons/BlurOff';
 import DeleteIcon from '@material-ui/icons/Delete';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import EditIcon from '@material-ui/icons/Edit';
+import clsx from 'clsx';
 import { useDispatch } from 'react-redux';
 
 import { deleteGallery, likeGallery } from '../../../actions/galleries';
 import useStyles from './styles';
 import galleryDefault from '../../../images/gallery-default.png';
 
-const Gallery = ({ gallery, setCurrentId }) => {
+const Gallery = ({ gallery, isCurrent, setCurrentId }) => {
   const dispatch = useDispatch();
   const classes  = useStyles();
 
   return (
-    <Card className={classes.card}>
-      <CardMedia className={classes.media} image={gallery.image || galleryDefault} title={gallery.title} />
+    <Card className={clsx(classes.card, {
+      [classes.selected]: isCurrent,
+    })}>
+      <Link onClick={() => alert('!')} to="">
+        <CardMedia className={classes.media} image={gallery.image || galleryDefault} title={gallery.title} />
+      </Link>
+      {gallery.private &&
+      <div className={classes.overlay}>
+        <Tooltip title="Private">
+          <Button size="small" fontSize="small">
+            <BlurOff className={classes.private} color="secondary" />
+          </Button>
+        </Tooltip>
+      </div>
+      }
       <div className={classes.overlay2}>
-        <Button style={{ color: 'white' }} size="small" onClick={() => setCurrentId(gallery.id)}><MoreHorizIcon fontSize="default" /></Button>
+        <Tooltip title="Edit">
+          <Button style={{ color: 'white' }} size="small" onClick={() => setCurrentId(gallery.id)}><EditIcon fontSize="small" /></Button>
+        </Tooltip>
       </div>
       <Typography className={classes.title} gutterBottom variant="h5" component="h2">{gallery.title}</Typography>
       <CardContent>
