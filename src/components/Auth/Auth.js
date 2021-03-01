@@ -71,7 +71,6 @@ const Auth = () => {
             <Input name="password" label="Password" value={form.password} handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
             {isSignup && <Input name="confirmPassword" label="Repeat Password" value={form.confirmPassword} handleChange={handleChange} type="password" />}
           </Grid>
-          {errors && <div className={classes.error}>{errors}</div>}
           {localErrors && <div className={classes.error}>{localErrors}</div>}
           <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
             {isSignup ? 'Sign Up' : 'Sign In'}
