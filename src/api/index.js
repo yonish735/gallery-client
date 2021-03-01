@@ -1,12 +1,28 @@
 import axios from 'axios';
 
-const url = 'http://localhost:8000';
+const baseURL = 'http://localhost:8000';
 
-const galleryUrl = `${url}/galleries`;
+const API = axios.create({ baseURL });
 
-export const fetchGalleries = () => axios.get(galleryUrl);
-export const createGallery = (newGallery) => axios.post(galleryUrl, newGallery);
-export const deleteGallery = (id) => axios.delete(`${galleryUrl}/${id}`);
-export const updateGallery = (id, updatedGallery) => axios.patch(`${galleryUrl}/${id}`, updatedGallery);
+API.interceptors.request.use((req) => {
+  const token = window.localStorage.getItem('token');
 
-export const likeGallery = (id) => axios.patch(`${galleryUrl}/${id}/likeGallery`);
+  if (token) {
+    // TODO: check expiration date
+    req.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return req;
+});
+
+const galleryUrl = '/galleries';
+
+export const fetchGalleries = () => API.get('/galleries');
+export const createGallery  = (newGallery) => API.post('/galleries', newGallery);
+export const deleteGallery  = (id) => API.delete(`/galleries/${id}`);
+export const updateGallery  = (id, updatedGallery) => API.patch(`/galleries/${id}`, updatedGallery);
+
+export const signIn = (data) => API.post('/users/signIn', data);
+export const signUp = (data) => API.post('/users/signUp', data);
+
+export const likeGallery = (id) => API.patch(`${galleryUrl}/${id}/likeGallery`);

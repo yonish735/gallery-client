@@ -1,4 +1,5 @@
 import {
+  AUTH_DONE,
   CREATE_DONE,
   CREATE_ERROR,
   CREATE_START,

@@ -9,6 +9,7 @@ import useStyles from './styles';
 // TODO: validaton of fields for presence and lenght
 const GalleryForm = ({ currentId, setCurrentId }) => {
   const [galleryData, setGalleryData] = useState({ title: '', description: '', private: false, image: '' });
+  const userId                        = useSelector((state) => state.auth?.user?.id);
   const gallery                       = useSelector((state) => (currentId ? state.galleries.galleries.find((gallery) => gallery.id === currentId) : null));
   const dispatch                      = useDispatch();
   const classes                       = useStyles();
@@ -22,13 +23,16 @@ const GalleryForm = ({ currentId, setCurrentId }) => {
   const clear = () => {
     setCurrentId(0);
     setGalleryData({ title: '', description: '', private: false, image: '' });
+    Array.from(document.querySelectorAll('input[type="file"]')).forEach(
+      input => (input.value = '')
+    );
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (currentId === 0) {
-      galleryData['user_id'] = 3; // TODO: user real user ID
+      galleryData['user_id'] = userId;
       dispatch(createGallery(galleryData));
     } else {
       dispatch(updateGallery(currentId, galleryData));

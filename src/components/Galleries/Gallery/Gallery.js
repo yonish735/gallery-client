@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, CardActions, CardContent, CardMedia, Link, Paper, Tooltip, Typography } from '@material-ui/core/';
+import { Button, Card, CardActions, CardContent, CardMedia, Link, Tooltip, Typography } from '@material-ui/core/';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import BlurOff from '@material-ui/icons/BlurOff';
 import DeleteIcon from '@material-ui/icons/Delete';

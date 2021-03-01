@@ -19,14 +19,12 @@ export default makeStyles((theme) => ({
     marginRight: '15px',
   },
   toolbar: {
-    // display: 'flex',
-    // justifyContent: 'flex-end',
-    // width: '400px',
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
   profile: {
     display: 'flex',
     justifyContent: 'space-between',
-    width: '400px',
   },
   userName: {
     display: 'flex',
@@ -36,8 +34,24 @@ export default makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
   },
-  purple: {
+  avatar: {
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
+    textTransform: 'uppercase',
+    fontWeight: 500,
   },
-}));
+  logout: {
+    marginLeft: '1em',
+    textTransform: 'uppercase',
+    fontWeight: 500,
+  },
+  albumAlbum: {
+    color: '#54c25a',
+    fontWeight: 900,
+  },
+  albumShare: {
+    color: '#2277ca',
+
+  },
+}))
+;
