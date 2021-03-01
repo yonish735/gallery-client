@@ -14,8 +14,8 @@ const Home = () => {
   const dispatch                  = useDispatch();
 
   useEffect(() => {
-    dispatch(getGalleries());
-  }, [dispatch]);
+    dispatch(getGalleries(user.id));
+  }, [dispatch, user]);
 
   if (user === null) {
     history.push('/auth');

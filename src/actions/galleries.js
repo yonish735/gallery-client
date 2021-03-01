@@ -16,10 +16,10 @@ import {
 
 import * as api from '../api/index.js';
 
-export const getGalleries = () => async (dispatch) => {
+export const getGalleries = (userId) => async (dispatch) => {
   try {
     dispatch({ type: FETCH_ALL_START });
-    const { data } = await api.fetchGalleries();
+    const { data } = await api.getGalleries(userId);
 
     dispatch({ type: FETCH_ALL_DONE, payload: data });
   } catch (error) {
