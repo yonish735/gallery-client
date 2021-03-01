@@ -12,8 +12,10 @@ export default makeStyles((theme) => ({
       borderRadius: '4px',
       padding: '8px 22px',
       fontSize: '0.9375rem',
+      fontWeight: 500,
       letterSpacing: '0.02857em',
       textTransform: 'uppercase',
+      fontFamily: ["Roboto", "Helvetica", "Arial", "sans-serif"],
     },
     '& input[type=file]::-webkit-file-upload-button:hover': {
       backgroundColor: '#303f9f',
@@ -27,7 +29,9 @@ export default makeStyles((theme) => ({
     flexWrap: 'wrap',
     justifyContent: 'center',
   },
-  fileInput: {},
+  fileInput: {
+    marginLeft: '6px',
+  },
   buttonSubmit: {
     marginBottom: 10,
   },
