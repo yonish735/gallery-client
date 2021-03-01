@@ -23,8 +23,8 @@ const Galleries = ({ currentId, setCurrentId }) => {
           <Gallery gallery={gallery} isCurrent={gallery.id === currentId} setCurrentId={setCurrentId} />
         </Grid>
       ))}
-      {galleries.length === 0 && (
-        <Typography component="h3" to="/" className={classes.heading} variant="h3" align="center">You don't have any gallery yet...</Typography>
+      {!WIP && galleries.length === 0 && (
+        <Typography component="h3" to="/" className={classes.heading} variant="h3" align="center">You don't have galleries yet...</Typography>
       )}
     </Grid>
   );
