@@ -14,7 +14,9 @@ const Home = () => {
   const dispatch                  = useDispatch();
 
   useEffect(() => {
-    dispatch(getGalleries(user.id));
+    if (user) {
+      dispatch(getGalleries(user.id));
+    }
   }, [dispatch, user]);
 
   if (user === null) {
