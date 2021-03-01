@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppBar, Avatar, Button, Typography } from '@material-ui/core';
 import Toolbar from '@material-ui/core/Toolbar';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import gallery from '../../images/gallery.svg';
@@ -10,7 +10,6 @@ import useStyles from './styles';
 
 const Navbar = () => {
   const user     = useSelector((state) => state.auth.user);
-  const history  = useHistory();
   const dispatch = useDispatch();
   const classes  = useStyles();
 
