@@ -1,6 +1,6 @@
 import React from 'react';
-import { AppBar, Avatar, Button, Typography } from '@material-ui/core';
-import Toolbar from '@material-ui/core/Toolbar';
+import { AppBar, Avatar, Button, InputBase, Toolbar, Typography } from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -23,16 +23,31 @@ const Navbar = () => {
         <img className={classes.image} src={gallery} alt="gallery icon" height="60" />
         <Typography component={Link} to="/" className={classes.heading} variant="h2" align="center"><span className={classes.albumAlbum}>Album</span><span className={classes.albumShare}>Share</span></Typography>
       </div>
-      <Toolbar className={classes.toolbar}>
-        <div className={classes.profile}>
-          {user &&
-          <>
-            <Avatar className={classes.avatar} alt={`${user?.firstName} ${user?.lastName}`}>{user?.firstName?.charAt(0)}{user?.lastName?.charAt(0)}</Avatar>
-            <Button variant="contained" className={classes.logout} color="secondary" onClick={handleClick}>Logout</Button>
-          </>
-          }
+      {user &&
+      <>
+        <div className={classes.search}>
+          <div className={classes.searchIcon}>
+            <SearchIcon />
+          </div>
+          <InputBase
+            placeholder="Search…"
+            classes={{
+              root: classes.inputRoot,
+              input: classes.inputInput,
+            }}
+            inputProps={{ 'aria-label': 'search' }}
+          />
         </div>
-      </Toolbar>
+        <Toolbar className={classes.toolbar}>
+          <div className={classes.profile}>
+            <>
+              <Avatar className={classes.avatar} alt={`${user?.firstName} ${user?.lastName}`}>{user?.firstName?.charAt(0)}{user?.lastName?.charAt(0)}</Avatar>
+              <Button variant="contained" className={classes.logout} color="secondary" onClick={handleClick}>Logout</Button>
+            </>
+          </div>
+        </Toolbar>
+      </>
+      }
     </AppBar>
   );
 };

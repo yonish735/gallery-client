@@ -42,7 +42,7 @@ const Gallery = ({ gallery, isCurrent, setCurrentId }) => {
       </CardContent>
       <CardActions className={classes.cardActions}>
         <Button size="small" color="primary" onClick={() => dispatch(likeGallery(gallery.id))}><ThumbUpAltIcon fontSize="small" /> Like {gallery.likeCount} </Button>
-        <Button size="small" color="primary" onClick={() => dispatch(deleteGallery(gallery.id))}><DeleteIcon fontSize="small" /> Delete</Button>
+        <Button size="small" color="primary" disabled={isCurrent} onClick={() => dispatch(deleteGallery(gallery.id))}><DeleteIcon fontSize="small" /> Delete</Button>
       </CardActions>
     </Card>
   );

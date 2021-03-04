@@ -14,5 +14,5 @@ export default makeStyles((theme) => ({
   wip: {
     position: 'absolute',
     zIndex: 10000,
-  }
+  },
 }));

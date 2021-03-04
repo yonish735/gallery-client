@@ -1,53 +1,57 @@
 import {
-  CREATE_DONE,
-  CREATE_ERROR,
-  CREATE_START,
-  DELETE_DONE,
-  DELETE_ERROR,
-  DELETE_START,
-  FETCH_ALL_DONE,
-  FETCH_ALL_ERROR,
-  FETCH_ALL_START,
+  CREATE_GALLERY_DONE,
+  CREATE_GALLERY_ERROR,
+  CREATE_GALLERY_START,
+  DELETE_GALLERY_DONE,
+  DELETE_GALLERY_ERROR,
+  DELETE_GALLERY_START,
+  FETCH_ALL_GALLERIES_DONE,
+  FETCH_ALL_GALLERIES_ERROR,
+  FETCH_ALL_GALLERIES_START,
   LIKE,
-  UPDATE_DONE,
-  UPDATE_ERROR,
-  UPDATE_START
+  UPDATE_GALLERY_DONE,
+  UPDATE_GALLERY_ERROR,
+  UPDATE_GALLERY_START
 } from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
 
 export const getGalleries = (userId) => async (dispatch) => {
   try {
-    dispatch({ type: FETCH_ALL_START });
+    dispatch({ type: FETCH_ALL_GALLERIES_START });
     const { data } = await api.getGalleries(userId);
 
-    dispatch({ type: FETCH_ALL_DONE, payload: data });
+    dispatch({ type: FETCH_ALL_GALLERIES_DONE, payload: data });
   } catch (error) {
-    dispatch({ type: FETCH_ALL_ERROR, payload: { message: error.message } });
+    dispatch({ type: FETCH_ALL_GALLERIES_ERROR, payload: { message: error.message } });
     console.log(error.message);
   }
 };
 
-export const createGallery = (gallery) => async (dispatch) => {
+export const createGallery = (gallery, filename) => async (dispatch) => {
   try {
-    dispatch({ type: CREATE_START });
-    const { data } = await api.createGallery(gallery);
+    dispatch({ type: CREATE_GALLERY_START });
 
-    dispatch({ type: CREATE_DONE, payload: data });
+    gallery.filename = filename ?? '';
+    const { data }   = await api.createGallery(gallery);
+
+    dispatch({ type: CREATE_GALLERY_DONE, payload: data });
   } catch (error) {
-    dispatch({ type: CREATE_ERROR, payload: { message: error.message } });
+    dispatch({ type: CREATE_GALLERY_ERROR, payload: { message: error.message } });
     console.log(error.message);
   }
 };
 
-export const updateGallery = (id, gallery) => async (dispatch) => {
+export const updateGallery = (id, gallery, filename) => async (dispatch) => {
   try {
-    dispatch({ type: UPDATE_START });
-    const { data } = await api.updateGallery(id, gallery);
+    dispatch({ type: UPDATE_GALLERY_START });
 
-    dispatch({ type: UPDATE_DONE, payload: data });
+    gallery.filename = filename ?? '';
+    const { data }   = await api.updateGallery(id, gallery);
+
+    dispatch({ type: UPDATE_GALLERY_DONE, payload: data });
   } catch (error) {
-    dispatch({ type: UPDATE_ERROR, payload: { message: error.message } });
+    dispatch({ type: UPDATE_GALLERY_ERROR, payload: { message: error.message } });
     console.log(error.message);
   }
 };
@@ -64,12 +68,12 @@ export const likeGallery = (id) => async (dispatch) => {
 
 export const deleteGallery = (id) => async (dispatch) => {
   try {
-    dispatch({ type: DELETE_START });
+    dispatch({ type: DELETE_GALLERY_START });
     await api.deleteGallery(id);
 
-    dispatch({ type: DELETE_DONE, payload: id });
+    dispatch({ type: DELETE_GALLERY_DONE, payload: id });
   } catch (error) {
     console.log(error.message);
-    dispatch({ type: DELETE_ERROR, payload: { message: error.message } });
+    dispatch({ type: DELETE_GALLERY_ERROR, payload: { message: error.message } });
   }
 };

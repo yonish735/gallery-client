@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Button, FormControlLabel, Paper, Switch, TextField, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import FileBase from 'react-file-base64';
 
 import { createGallery, updateGallery } from '../../actions/galleries';
 import useStyles from './styles';
+import FileBase from '../FileBase/FileBase';
 
 // TODO: validaton of fields for presence and lenght
 const GalleryForm = ({ currentId, setCurrentId }) => {
   const [galleryData, setGalleryData] = useState({ title: '', description: '', private: false, image: '' });
+  const [fileName, setFileName] = useState('');
+
   const userId                        = useSelector((state) => state.auth?.user?.id);
   const gallery                       = useSelector((state) => (currentId ? state.galleries.galleries.find((gallery) => gallery.id === currentId) : null));
   const dispatch                      = useDispatch();
@@ -17,15 +19,14 @@ const GalleryForm = ({ currentId, setCurrentId }) => {
   useEffect(() => {
     if (gallery) {
       setGalleryData(gallery);
+      setFileName(gallery.filename || "");
     }
   }, [gallery]);
 
   const clear = () => {
     setCurrentId(0);
     setGalleryData({ title: '', description: '', private: false, image: '' });
-    Array.from(document.querySelectorAll('input[type="file"]')).forEach(
-      input => (input.value = '')
-    );
+    setFileName("");
   };
 
   const handleSubmit = async (e) => {
@@ -33,9 +34,9 @@ const GalleryForm = ({ currentId, setCurrentId }) => {
 
     if (currentId === 0) {
       galleryData['user_id'] = userId;
-      dispatch(createGallery(galleryData));
+      dispatch(createGallery(galleryData, fileName));
     } else {
-      dispatch(updateGallery(currentId, galleryData));
+      dispatch(updateGallery(currentId, galleryData, fileName));
     }
     clear();
   };
@@ -54,10 +55,11 @@ const GalleryForm = ({ currentId, setCurrentId }) => {
           description: e.target.value
         })} />
         <FormControlLabel
+          className={classes.switch}
           control={<Switch name="private" variant="outlined" checked={galleryData.private} onChange={setPrivate} />}
           label="Private"
         />
-        <div className={classes.fileInput}><FileBase type="file" multiple={false} onDone={({ base64 }) => setGalleryData({ ...galleryData, image: base64 })} /></div>
+        <FileBase onDone={({ base64 }) => setGalleryData({ ...galleryData, image: base64 })} fileName={fileName} setFileName={setFileName} />
         <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
         <Button className={classes.buttonClear} variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
       </form>

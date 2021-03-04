@@ -9,6 +9,7 @@ import Home from './components/Home/Home';
 import Auth from './components/Auth/Auth';
 import { AUTH_DONE } from './constants/actionTypes';
 
+// TODO: add propTypes to all components
 const App = () => {
   const dispatch = useDispatch();
   const token    = window.localStorage.getItem('token');

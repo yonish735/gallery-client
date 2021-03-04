@@ -19,9 +19,9 @@ const galleryUrl = '/galleries';
 
 export const getGalleries  = (userId) => API.get(`/galleries/${userId}`);
 export const allGalleries  = () => API.get('/galleries');
-export const createGallery = (newGallery) => API.post('/galleries', newGallery);
+export const createGallery = (newGallery, filename) => API.post('/galleries', newGallery, filename);
 export const deleteGallery = (id) => API.delete(`/galleries/${id}`);
-export const updateGallery = (id, updatedGallery) => API.patch(`/galleries/${id}`, updatedGallery);
+export const updateGallery = (id, updatedGallery, filename) => API.patch(`/galleries/${id}`, updatedGallery, filename);
 
 export const signIn = (data) => API.post('/users/signIn', data);
 export const signUp = (data) => API.post('/users/signUp', data);
