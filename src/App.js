@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux';
 
 import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/Home';
+import PicturesHome from './components/Home/Pictures';
+import Search from './components/Search/Search';
 import Auth from './components/Auth/Auth';
 import { AUTH_DONE } from './constants/actionTypes';
 
@@ -23,8 +25,10 @@ const App = () => {
         <Container maxWidth="lg">
           <Navbar />
           <Switch>
-            <Route path="/" exact component={Home} />
+            <Route path="/search" exact component={Search} />
+            <Route path="/galleries/:galleryId" exact component={PicturesHome} />
             <Route path="/auth" exact component={Auth} />
+            <Route path="/" component={Home} />
           </Switch>
         </Container>
       </BrowserRouter>

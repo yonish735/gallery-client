@@ -9,6 +9,10 @@ import {
   FETCH_ALL_GALLERIES_ERROR,
   FETCH_ALL_GALLERIES_START,
   LIKE,
+  SEARCH_GALLERIES_DONE,
+  SEARCH_GALLERIES_ERROR,
+  SEARCH_GALLERIES_RESET,
+  SEARCH_GALLERIES_START,
   UPDATE_GALLERY_DONE,
   UPDATE_GALLERY_ERROR,
   UPDATE_GALLERY_START
@@ -24,6 +28,23 @@ export const getGalleries = (userId) => async (dispatch) => {
     dispatch({ type: FETCH_ALL_GALLERIES_DONE, payload: data });
   } catch (error) {
     dispatch({ type: FETCH_ALL_GALLERIES_ERROR, payload: { message: error.message } });
+    console.log(error.message);
+  }
+};
+
+export const getPublicGalleries = (pattern) => async (dispatch) => {
+  if (pattern === undefined) {
+    dispatch({ type: SEARCH_GALLERIES_RESET });
+  }
+
+  try {
+    dispatch({ type: SEARCH_GALLERIES_START });
+
+    const { data } = await api.getPublicGalleries(pattern);
+
+    dispatch({ type: SEARCH_GALLERIES_DONE, payload: data });
+  } catch (error) {
+    dispatch({ type: SEARCH_GALLERIES_ERROR, payload: { message: error.message } });
     console.log(error.message);
   }
 };

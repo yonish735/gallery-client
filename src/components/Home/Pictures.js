@@ -2,27 +2,43 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Fab, Grid, Grow } from '@material-ui/core';
 import { KeyboardArrowUp } from '@material-ui/icons';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { getGalleries } from '../../actions/galleries';
-import Galleries from '../Galleries/Galleries';
-import GalleryForm from '../GalleryForm/GalleryForm';
 import ScrollTop from '../ScrollTop/ScrollTop';
+import Pictures from '../Pictures/Pictures';
+import PictureForm from '../Pictures/PictureForm/PictureForm';
+import { getPictures } from '../../actions/pictures';
 
-const Home = () => {
-  const [currentId, setCurrentId] = useState(0);
+const PicturesHome = () => {
+  const [pictureId, setPictureId] = useState(0);
+  let { galleryId }               = useParams();
   const user                      = useSelector((state) => state.auth.user);
+  const { galleries }             = useSelector((state) => state.galleries);
   const history                   = useHistory();
   const dispatch                  = useDispatch();
 
+  galleryId     = parseInt(galleryId);
+  const gallery = galleries.find(g => g.id === galleryId);
+
   useEffect(() => {
-    if (user) {
+    if (user && galleries.length === 0) {
       dispatch(getGalleries(user.id));
     }
-  }, [dispatch, user]);
+  }, [dispatch, galleries, user]);
+
+  useEffect(() => {
+    if (user && galleries.length !== 0) {
+      dispatch(getPictures(galleryId));
+    }
+  }, [dispatch, galleryId, galleries, user]);
 
   if (user === null) {
     history.push('/auth');
+    return <></>;
+  }
+
+  if (galleries.length === 0) {
     return <></>;
   }
 
@@ -32,7 +48,7 @@ const Home = () => {
         <Grid container justify="space-between" alignItems="stretch" spacing={3}>
           <Grid item xs={12} sm={8}>
             <div id="back-to-top-anchor" />
-            <Galleries currentId={currentId} setCurrentId={setCurrentId} />
+            <Pictures galleryId={galleryId} galleryTitle={gallery.title} currentId={pictureId} setCurrentId={setPictureId} />
             <ScrollTop>
               <Fab color="secondary" size="small" aria-label="scroll back to top">
                 <KeyboardArrowUp />
@@ -40,7 +56,7 @@ const Home = () => {
             </ScrollTop>
           </Grid>
           <Grid item xs={12} sm={3}>
-            <GalleryForm currentId={currentId} setCurrentId={setCurrentId} />
+            <PictureForm galleryId={galleryId} currentId={pictureId} setCurrentId={setPictureId} />
           </Grid>
         </Grid>
       </Container>
@@ -48,4 +64,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default PicturesHome;

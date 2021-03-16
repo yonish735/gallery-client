@@ -15,6 +15,9 @@ export default makeStyles((theme) => ({
     position: 'absolute',
     zIndex: 10000,
   },
+  breadcrumbs: {
+    marginBottom: '20px',
+  },
   heading: {
     width: '100%',
   },
